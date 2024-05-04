@@ -1,22 +1,22 @@
 20
 
-u1	Amna Akram	2       p1	p2	-1
-u2	Muhammad Ali	2       p2	p3	-1
-u3	Waheed Khan	0       -1
-u4	Burhan Tahir	1       p10	-1
-u5	Hassan Sohail	2       p9	p10	-1
-u6	Saad Ali	1       p8	-1
-u7	Abdullah Nadeem	4       p1	p2	p5	p9	-1
-u8	Nimra Batool	0       -1
-u9	Abubakar Javed	1       p4	-1
-u10	Saad Sultan	1       p2	-1
-u11	Ahsan Ali	1       p1	-1
-u12	Ali Ahmed	1       p5	-1
-u13	Saad Ahmed	1       p3	-1
-u14	Usman Usman	1       p2	-1
-u15	Zaid Tariq	1       p1	-1
-u16	Abdullah Siddique	1       p1	-1
-u17	Saif ullah	1       p1	-1
-u18	Hashir Baig    -1
-u19	Usama  Jawad	1       p7	-1
-u20	Haris Muneer	0	-1
+u1	Amna Akram -	2       p1	p2	-1
+u2	Muhammad Ali -	2       p2	p3	-1
+u3	Waheed Khan -	0       -1
+u4	Burhan Tahir -	1       p10	-1
+u5	Hassan Sohail -	2       p9	p10	-1
+u6	Saad Ali -	1       p8	-1
+u7	Abdullah Nadeem -	4       p1	p2	p5	p9	-1
+u8	Nimra Batool -	0       -1
+u9	Abubakar Javed -	1       p4	-1
+u10	Saad Sultan -	1       p2	-1
+u11	Ahsan Ali -	1       p1	-1
+u12	Ali Ahmed -	1       p5	-1
+u13	Saad Ahmed -	1       p3	-1
+u14	Usman Usman -	1       p2	-1
+u15	Zaid Tariq -	1       p1	-1
+u16	Abdullah Siddique -	1       p1	-1
+u17	Saif ullah -	1       p1	-1
+u18	Hashir Baig -    -1
+u19	Usama  Jawad -	1       p7	-1
+u20	Haris Muneer -	0	-1

@@ -19,6 +19,7 @@ void SocialNetworkingApp::Run()
     int choice;
     cout<<"\nPress 1 to Sign In!\nPress 2 to Sign Up!\n";
     cin>>choice;
+    
     if (choice==1)
     {
         User currentUser;
@@ -28,7 +29,9 @@ void SocialNetworkingApp::Run()
         getline(cin,input);
         if(currentUser.CheckAccountExistence(input))
         {
-            cout<<"\nAccount Existed!\n";
+            cout<<"\n\n\t\tAccount Existed!\n";
+            currentUser.GetNameFromFile(input);
+            cout<<" successfully set as Current User!\n";
         }
         else 
         {
