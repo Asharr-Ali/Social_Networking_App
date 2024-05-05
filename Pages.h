@@ -5,6 +5,8 @@
 #include<string>
 #include<fstream>
 
+#include "Posts.h"
+
 using namespace std;
 
 class Post;
@@ -21,7 +23,7 @@ class Page
     int pagePostsCount;
 
     Page();
-    void inputPage(string*);
+    void inputPage(string*,int);
 };
 Page::Page()
 {
@@ -29,44 +31,56 @@ Page::Page()
     pageFollowers,pagePosts=nullptr;
     pageFollowersCount,pagePostsCount=0;
 }
-void Page::inputPage(string* pagesIDs)
+void Page::inputPage(string* pagesIDs,int i)
 {
-    int size=sizeof(pagesIDs);
+    ifstream pageData("Pages.txt");
+    if(!pageData)
+        cout<<"\nPage File failed to Open!\n";
 
-    for (int i=0;i<size;i++)
+    string IDtoFind=pagesIDs[i];    
+
+    while(1)
     {
-        while(1)
+        string File;
+        pageData>>File;
+
+        if(IDtoFind==File)
         {
-            ifstream pageData("Pages.txt");
-            if(!pageData)
-            cout<<"\nPage File failed to Open!\n";
+            pageID=File;
+            pageData>>createdBy;
 
-            string File;
-            pageData>>File;
-            
-            if(pagesIDs[i]==File)
+            string line;
+            getline(pageData,line);
+            getline(pageData,pageName);
+
+            pageData>>pageFollowersCount;
+            pageFollowers=new string[pageFollowersCount];
+            for (int i=0;i<pageFollowersCount;i++)
             {
-                pageData>>pageID;
-                pageData>>createdBy;
-
-                string line;
-                while(getline(pageData,line)&&line!="-2")
-                pageName+=line;
-
-                pageData>>pageFollowersCount;
-                pageFollowers=new string[pageFollowersCount];
-                for (int i=0;i<pageFollowersCount;i++)
-                {
-                    string Data;
-                    pageData>>Data;
-                    pageFollowers[i]=Data;
-                }
-
-                pageData.close();
-                break;
+                string Data;
+                pageData>>Data;
+                pageFollowers[i]=Data;
             }
+
+            Post currentUser;
+            pagePostsCount=currentUser.postsCount(IDtoFind);
+            
+            pagePosts=new Post*[pagePostsCount];
+            for (int j=0;j<pagePostsCount;j++)
+                pagePosts[j]=new Post;  
+
+            ifstream postsData("Posts.txt");
+            if(!postsData)
+                cout<<"\nPosts File Failed to Open!\n";
+
+            for (int i=0;i<pagePostsCount;i++)
+                pagePosts[i]->inputPost(IDtoFind,postsData);
+
+            postsData.close();
+            break;
         }
     }
+    pageData.close();
 }
 
 #endif

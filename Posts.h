@@ -5,9 +5,9 @@
 #include<string>
 #include<fstream>
 
-using namespace std;
+#include "Comments.h"
 
-class Comment;
+using namespace std;
 
 class Post
 {
@@ -23,7 +23,8 @@ class Post
     int postCommentsCount;
 
     Post();
-    void inputPost(string);
+    int postsCount(string);
+    void inputPost(string,ifstream&);
 };
 Post::Post()
 {
@@ -31,31 +32,61 @@ Post::Post()
     num,activity,postCommentsCount=0;
     postComments=nullptr;
 }
-void Post::inputPost(string ID)
+int Post::postsCount(string ID)
+{
+    int postsCount=0;
+    ifstream postData("Posts.txt");
+    if(!postData)
+        cout<<"\nPosts File Failed to Open!\n";   
+
+    string File;
+    while(getline(postData,File))
+    {
+        postData>>File;
+
+        if(ID==File)
+        postsCount++;
+    }
+    postData.close();    
+    return postsCount;
+}
+void Post::inputPost(string ID,ifstream& postData)
 {
     while(1)
     {
-        ifstream postData("Posts.txt");
-        if(!postData)
-        cout<<"\nPosts File Failed to Open!\n";
-
         string File;
         postData>>File;
+
         if(ID==File)
         {
             sharedUser=File;
             postData>>num;
             postData>>postID;
             postData>>postDate;
+            postData>>activity;
+            postData>>postCommentsCount;
 
             string line;
-            while(getline(postData,line)&&line!="-2")
-            postContent+=line;
+            getline(postData,line);
+            getline(postData,postContent);
 
-            postData>>activity;
-            postData>>feeling;
+            if(num!=1)
+                getline(postData,feeling);
 
-            postData>>postCommentsCount;
+            ifstream commentsData("Comments.txt");
+            if(!commentsData)
+                cout<<"\nComment File Failed to Open!";
+
+            postComments=new Comment* [postCommentsCount]; 
+            for (int i=0;i<postCommentsCount;i++)
+                postComments[i]=new Comment;
+
+            for (int j=0;j<postCommentsCount;j++)
+                postComments[j]->inputComment(postID,commentsData);
+
+            commentsData.close();
+
+            break;
         }
     }
 }

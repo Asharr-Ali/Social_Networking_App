@@ -3,12 +3,16 @@
 
 #include<string>
 #include<fstream>
+
 #include "Pages.h"
+#include "Posts.h"
+#include "Friends.h"
 
 using namespace std;
 
-class Posts;
+class Post;
 class Page;
+class Friend;
 
 class User
 {
@@ -17,23 +21,25 @@ class User
     string firstName;
     string lastName;
     string* friendsID;
-    User** friendsList;
+    Friend** friendsList;
     int friendsCount;
     string* likedPagesID;
     Page** pagesLiked;
     int pagesLikedCount;
-    Posts** userPosts;
+    Post** userPosts;
+    string* postsID;
+    int postsCount;
+
     public:
     User();
     bool CheckAccountExistence(string);
     void GetNameFromFile(string);
     void ReadDataFromFile(string);
-    void ReadFriendData();
 };
 User::User()
 {
     ID,firstName,lastName='\0';
-    friendsID,friendsList,likedPagesID,pagesLiked,userPosts=nullptr;
+    friendsID,friendsList,likedPagesID,pagesLiked,userPosts,postsID=nullptr;
     friendsCount,pagesLikedCount=0;
 }
 bool User::CheckAccountExistence(string in)
@@ -57,7 +63,7 @@ void User::GetNameFromFile(string id)
 {
     ifstream searchData("Users.txt");
 
-     if(!searchData)
+    if(!searchData)
     cout<<"\nFile Failed to Open!";
 
     string File;
@@ -76,25 +82,25 @@ void User::GetNameFromFile(string id)
     }
     searchData.close();
 }
-void User::ReadFriendData()
-{
-
-}
 void User::ReadDataFromFile(string id)
 {
     ifstream userData("Users.txt");
     ifstream friendsData("Friends.txt");
 
-    if(!userData || !friendsData)
-    cout<<"\nFile Failed to Open!";
+    if(!userData)
+        cout<<"\n Users File Failed to Open!\n";
+    if(!friendsData)
+        cout<<"\n Friends File Failed to Open!\n";
 
     string File;
     string line;
     int lineNumber=0,lineNumber1=0;
-    while(1)
+
+    while(getline(userData,line))
     {
         userData>>File;
         lineNumber++;
+
         if(id==File)
         {
             ID=File;
@@ -113,7 +119,26 @@ void User::ReadDataFromFile(string id)
             
             pagesLiked=new Page* [pagesLikedCount];
             for (int i=0;i<pagesLikedCount;i++)
-            pagesLiked[i]=new Page;
+                pagesLiked[i]=new Page;
+           
+            for (int i=0;i<pagesLikedCount;i++)
+                pagesLiked[i]->inputPage(likedPagesID,i);
+
+            Post currentUser;
+            postsCount=currentUser.postsCount(id);
+            userPosts=new Post*[postsCount];
+
+            for (int j=0;j<postsCount;j++)
+                userPosts[j]=new Post;  
+
+            ifstream postsData("Posts.txt");
+            if(!postsData)
+                cout<<"\nPosts File Failed to Open!\n";
+
+            for (int i=0;i<postsCount;i++)
+                userPosts[i]->inputPost(id,postsData);
+
+            postsData.close();
 
             while(getline(friendsData,line)&&lineNumber1<lineNumber)
                 lineNumber1++;
@@ -121,7 +146,6 @@ void User::ReadDataFromFile(string id)
             if(lineNumber1==lineNumber) 
             {
                 friendsData>>friendsCount;
-
                 friendsID=new string [friendsCount];
 
                 for (int i=0;i<friendsCount;i++)
@@ -130,11 +154,20 @@ void User::ReadDataFromFile(string id)
                     friendsData>>Data;
                     friendsID[i]=Data;
                 }
-            }   
+            }
+
+            friendsList=new Friend* [friendsCount];
+            for (int i=0;i<friendsCount;i++)
+                friendsList[i]=new Friend;
+
+            for (int j=0;j<friendsCount;j++)
+                friendsList[j]->ReadFriendData(friendsID[j]);
+
             break;
         }
     }
     userData.close();
+    friendsData.close();
 }
 
 #endif

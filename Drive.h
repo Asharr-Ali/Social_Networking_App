@@ -27,11 +27,14 @@ void SocialNetworkingApp::Run()
         string input;
         cin.ignore();
         getline(cin,input);
+
         if(currentUser.CheckAccountExistence(input))
         {
             cout<<"\n\n\t\tAccount Existed!\n";
             currentUser.GetNameFromFile(input);
             cout<<" successfully set as Current User!\n";
+
+            currentUser.ReadDataFromFile(input);
         }
         else 
         {
