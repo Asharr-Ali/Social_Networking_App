@@ -3,11 +3,12 @@
 
 #include<string>
 #include<fstream>
+#include "Pages.h"
 
 using namespace std;
 
 class Posts;
-class Pages;
+class Page;
 
 class User
 {
@@ -15,11 +16,11 @@ class User
     string ID;
     string firstName;
     string lastName;
-    string** friendsID;
+    string* friendsID;
     User** friendsList;
     int friendsCount;
-    string** likedPagesID;
-    Pages** pagesLiked;
+    string* likedPagesID;
+    Page** pagesLiked;
     int pagesLikedCount;
     Posts** userPosts;
     public:
@@ -27,6 +28,7 @@ class User
     bool CheckAccountExistence(string);
     void GetNameFromFile(string);
     void ReadDataFromFile(string);
+    void ReadFriendData();
 };
 User::User()
 {
@@ -74,31 +76,65 @@ void User::GetNameFromFile(string id)
     }
     searchData.close();
 }
+void User::ReadFriendData()
+{
+
+}
 void User::ReadDataFromFile(string id)
 {
     ifstream userData("Users.txt");
+    ifstream friendsData("Friends.txt");
 
-    if(!userData)
+    if(!userData || !friendsData)
     cout<<"\nFile Failed to Open!";
 
     string File;
+    string line;
+    int lineNumber=0,lineNumber1=0;
     while(1)
     {
         userData>>File;
+        lineNumber++;
         if(id==File)
         {
             ID=File;
             userData>>firstName;
             userData>>lastName;
             userData>>pagesLikedCount;
-            
-            pagesLiked=new Pages* [pagesLikedCount];
-            for (int i=0;i<pagesLikedCount;i++)
-            pagesLiked[i]=new Pages;
 
-  userData.close();
+            likedPagesID=new string[pagesLikedCount];
+
+            for (int i=0;i<pagesLikedCount;i++)
+            {
+                string Data;
+                userData>>Data;
+                likedPagesID[i]=Data;
+            }
+            
+            pagesLiked=new Page* [pagesLikedCount];
+            for (int i=0;i<pagesLikedCount;i++)
+            pagesLiked[i]=new Page;
+
+            while(getline(friendsData,line)&&lineNumber1<lineNumber)
+                lineNumber1++;
+
+            if(lineNumber1==lineNumber) 
+            {
+                friendsData>>friendsCount;
+
+                friendsID=new string [friendsCount];
+
+                for (int i=0;i<friendsCount;i++)
+                {
+                    string Data;
+                    friendsData>>Data;
+                    friendsID[i]=Data;
+                }
+            }   
+            break;
         }
     }
+    userData.close();
 }
 
 #endif
