@@ -35,6 +35,10 @@ class User
     bool CheckAccountExistence(string);
     void GetNameFromFile(string);
     void ReadDataFromFile(string);
+    void viewHomePage();
+    void viewTimeLine();
+    void viewFriendList();
+    void viewLikedPages();
 };
 User::User()
 {
@@ -61,22 +65,22 @@ bool User::CheckAccountExistence(string in)
 }
 void User::GetNameFromFile(string id)
 {
-    ifstream searchData("Users.txt");
+    ifstream searchData("Display.txt");
 
     if(!searchData)
-    cout<<"\nFile Failed to Open!";
+    cout<<"\nDisplay File Failed to Open!";
 
     string File;
 
     while(1)
     {
         searchData>>File;
+
         if(id==File)
         {
-            searchData>>File;
-            cout<<File<<" ";
-            searchData>>File;
-            cout<<File;
+            while(searchData>>File && File!="-1")
+                cout<<File<<" ";
+                
             break;
         }
     }
@@ -168,6 +172,73 @@ void User::ReadDataFromFile(string id)
     }
     userData.close();
     friendsData.close();
+}
+void User::viewHomePage()
+{
+    cout<<"\n\n\n-------------------------------Homepage---------------------------------------------\n\n\n";
+    for (int j=0;j<pagesLikedCount;j++)
+        pagesLiked[j]->displayPagePosts();   
+
+    for (int i=0;i<postsCount;i++)
+    {
+        userPosts[i]->displayPost();
+        cout<<"\n\n";
+    }
+
+    for(int k=0;k<friendsCount;k++)
+        friendsList[k]->userPostsDisplay();
+
+    cout<<"-----------------------------------------------------------------------------------\n\n\n";
+}
+void User::viewTimeLine()
+{
+    cout<<"\n\n\n-------------------------------Timeline---------------------------------------------\n\n\n";   
+    for (int i=0;i<postsCount;i++)
+    {
+        userPosts[i]->displayPost();
+        cout<<"\n\n";
+    }
+    cout<<"-----------------------------------------------------------------------------------\n\n\n";
+}
+void User::viewFriendList()
+{
+    cout<<"\n\n\n-------------------------------Friends List-------------------------------------\n";
+    if(friendsCount!=0)
+    {
+        for (int i=0;i<friendsCount;i++)
+        {
+            cout<<"\n"<<friendsID[i]<<" - ";
+            GetNameFromFile(friendsID[i]);
+        }
+    }
+    else 
+        cout<<"\nUser has no Friends!\n";
+
+    cout<<"\n\n--------------------------------------------------------------------------\n";
+}
+void User::viewLikedPages()
+{
+    cout<<"\n\n\n-------------------------------Liked Pages List-------------------------------------\n";
+    if(pagesLikedCount!=0)
+    {
+        for (int i=0;i<pagesLikedCount;i++)
+        {
+            cout<<"\n"<<likedPagesID[i]<<" - ";
+            GetNameFromFile(likedPagesID[i]);
+        }
+    }
+    else 
+        cout<<"\nUser has no Liked Pages!\n";
+
+    cout<<"\n\n--------------------------------------------------------------------------\n";
+}
+void Page::displayPagePosts()
+{
+    for(int i=0;i<pagePostsCount;i++)
+    {
+        pagePosts[i]->displayPost();
+        cout<<"\n\n";
+    }
 }
 
 #endif

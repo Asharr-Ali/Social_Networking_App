@@ -24,6 +24,8 @@ class Page
 
     Page();
     void inputPage(string*,int);
+    void displayAnyPage();
+    void displayPagePosts();
 };
 Page::Page()
 {
@@ -81,6 +83,20 @@ void Page::inputPage(string* pagesIDs,int i)
         }
     }
     pageData.close();
+}
+void Page::displayAnyPage()
+{
+    string newID;
+    cout<<"\nEnter Any Page ID you want to see:";
+    getline(cin,newID);
+}
+void Page::displayPagePosts()
+{
+    for(int i=0;i<pagePostsCount;i++)
+    {
+        pagePosts[i]->displayPost();
+        cout<<"\n\n";
+    }
 }
 
 #endif

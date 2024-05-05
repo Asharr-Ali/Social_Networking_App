@@ -27,6 +27,7 @@ class Friend
     Friend();
     void GetNameFromFile(string);
     void ReadFriendData(string);
+    void userPostsDisplay();
 };
 Friend::Friend()
 {
@@ -38,7 +39,7 @@ void Friend::GetNameFromFile(string id)
     ifstream searchData("Users.txt");
 
     if(!searchData)
-    cout<<"\nFile Failed to Open!";
+    cout<<"\nUser File Failed to Open!";
 
     string File;
 
@@ -95,6 +96,14 @@ void Friend::ReadFriendData(string id)
         }
     }
     userData.close();
+}
+void Friend::userPostsDisplay()
+{
+    for (int i=0;i<postsCount;i++)
+    {
+        userPosts[i]->displayPost();
+        cout<<"\n\n";
+    }
 }
 
 #endif

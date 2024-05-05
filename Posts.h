@@ -23,14 +23,39 @@ class Post
     int postCommentsCount;
 
     Post();
+    void GetNameFromFile(string);
     int postsCount(string);
     void inputPost(string,ifstream&);
+    void displayPost();
 };
 Post::Post()
 {
     postID,postDate,postContent,feeling,sharedUser='\0';
     num,activity,postCommentsCount=0;
     postComments=nullptr;
+}
+void Post::GetNameFromFile(string id)
+{
+    ifstream searchData("Display.txt");
+
+    if(!searchData)
+    cout<<"\nDisplay File Failed to Open!";
+
+    string File;
+
+    while(1)
+    {
+        searchData>>File;
+
+        if(id==File)
+        {
+            while(searchData>>File && File!="-1")
+                cout<<File<<" ";
+                
+            break;
+        }
+    }
+    searchData.close();
 }
 int Post::postsCount(string ID)
 {
@@ -90,5 +115,41 @@ void Post::inputPost(string ID,ifstream& postData)
         }
     }
 }
+void Post::displayPost()
+{
+    if(num!=1)
+    {
+        if(activity==1)
+        {
+            GetNameFromFile(sharedUser);
+            cout<<" is feeling "<<feeling<<"\t"<<postDate<<"\n"<<" ---"<<postContent;
+        }
+        else if(activity==2)
+        {
+            GetNameFromFile(sharedUser);
+            cout<<" is thinking about "<<feeling<<"\t"<<postDate<<"\n"<<" ---"<<postContent;
+        }
+        else if(activity==3)
+        {
+            GetNameFromFile(sharedUser);
+            cout<<" is making "<<feeling<<"\t"<<postDate<<"\n"<<" ---"<<postContent;
+        }
+        else if(activity==4)
+        {
+            GetNameFromFile(sharedUser);
+            cout<<" is celebrating "<<feeling<<"\t"<<postDate<<"\n"<<" ---"<<postContent;
+        }
+    }
+    else 
+    {
+        GetNameFromFile(sharedUser);
+        cout<<" shared a post "<<"\t"<<postDate<<"\n"<<" ---"<<postContent;
+    }
+    for (int i=0;i<postCommentsCount;i++)
+    {
+        cout<<"\n\t\t\t";
+        postComments[i]->displayComment();
+    }   
+} 
 
 #endif

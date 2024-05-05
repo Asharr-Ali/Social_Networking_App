@@ -35,6 +35,17 @@ void SocialNetworkingApp::Run()
             cout<<" successfully set as Current User!\n";
 
             currentUser.ReadDataFromFile(input);
+
+                /*int choice;
+                cout<<"\nPress 1 to view Friend List:";
+                cin>>choice;
+
+                if(choice==1)
+                currentUser.viewFriendList();*/
+
+                //currentUser.viewHomePage();
+                //currentUser.viewTimeLine();
+                //currentUser.viewLikedPages();
         }
         else 
         {

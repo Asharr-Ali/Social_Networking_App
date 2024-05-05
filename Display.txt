@@ -1,0 +1,33 @@
+u1   Amna Akram -1
+u2   Muhammad Ali -1
+u3   Waheed Khan -1
+u4   Burhan Tahir -1
+u5   Hassan Sohail -1
+u6   Saad Ali -1
+u7   Abdullah Nadeem -1
+u8   Nimra Batool -1
+u9   Abubakar Javed -1
+u10  Saad Sultan -1
+u11  Ahsan Ali -1
+u12  Ali Ahmed -1
+u13  Saad Ahmed -1
+u14  Usman Usman -1
+u15  Zaid Tariq -1
+u16  Abdullah Siddique -1
+u17  Saif Ullah -1
+u18  Hashir Baig -1
+u19  Usama Jawad -1
+u20  Haris Muneer -1 
+
+p1   Food Fusion -1
+p2   Al Jazeera English -1 
+p3   Allama Iqbal -1 
+p4   Scholarships for International Students -1
+p5   Rumi Quotes -1
+p6   Dawn.com -1
+p7   People of Pakistan -1
+p8   History -1
+p9   BBC News -1
+p10  CNN International -1
+p11  Birthday Cakes -1
+p12  M Ali Jinnah -1
