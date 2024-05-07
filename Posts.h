@@ -23,9 +23,12 @@ class Post
     int postCommentsCount;
 
     Post();
+
     void GetNameFromFile(string);
     int postsCount(string);
-    void inputPost(string,ifstream&);
+    void inputPostByUserID(string,ifstream&);
+    void inputPostByPostID(string ,ifstream&);
+    void inputCommentsOfPost();
     void displayPost();
 };
 Post::Post()
@@ -75,7 +78,7 @@ int Post::postsCount(string ID)
     postData.close();    
     return postsCount;
 }
-void Post::inputPost(string ID,ifstream& postData)
+void Post::inputPostByUserID(string ID,ifstream& postData)
 {
     while(1)
     {
@@ -85,8 +88,8 @@ void Post::inputPost(string ID,ifstream& postData)
         if(ID==File)
         {
             sharedUser=File;
-            postData>>num;
             postData>>postID;
+            postData>>num;
             postData>>postDate;
             postData>>activity;
             postData>>postCommentsCount;
@@ -98,22 +101,53 @@ void Post::inputPost(string ID,ifstream& postData)
             if(num!=1)
                 getline(postData,feeling);
 
-            ifstream commentsData("Comments.txt");
-            if(!commentsData)
-                cout<<"\nComment File Failed to Open!";
-
-            postComments=new Comment* [postCommentsCount]; 
-            for (int i=0;i<postCommentsCount;i++)
-                postComments[i]=new Comment;
-
-            for (int j=0;j<postCommentsCount;j++)
-                postComments[j]->inputComment(postID,commentsData);
-
-            commentsData.close();
-
+            inputCommentsOfPost();
             break;
         }
     }
+}
+void Post::inputPostByPostID(string ID,ifstream& postData)
+{
+    while(1)
+    {
+        string File;
+        postData>>File;
+
+        if(ID==File)
+        {
+            postData>>sharedUser;
+            postData>>postID;
+            postData>>num;
+            postData>>postDate;
+            postData>>activity;
+            postData>>postCommentsCount;
+
+            string line;
+            getline(postData,line);
+            getline(postData,postContent);
+
+            if(num!=1)
+                getline(postData,feeling);
+
+            inputCommentsOfPost();
+            break;
+        }
+    }
+}
+void Post::inputCommentsOfPost()
+{
+    ifstream commentsData("Comments.txt");
+        if(!commentsData)
+            cout<<"\nComment File Failed to Open!";
+
+        postComments=new Comment* [postCommentsCount]; 
+        for (int i=0;i<postCommentsCount;i++)
+            postComments[i]=new Comment;
+
+        for (int j=0;j<postCommentsCount;j++)
+            postComments[j]->inputComment(postID,commentsData);
+
+        commentsData.close();
 }
 void Post::displayPost()
 {

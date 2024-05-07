@@ -3,6 +3,6 @@
 using namespace std;
 
 int main()
-{
+{    
      SocialNetworkingApp::Run();
 }

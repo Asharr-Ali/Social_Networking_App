@@ -3,6 +3,7 @@
 
 #include<iostream>
 #include<string>
+
 #include "Users.h"
 
 using namespace std;
@@ -11,6 +12,7 @@ class SocialNetworkingApp
 {
     public:
     SocialNetworkingApp(){}
+
     static void Run();
 };
 void SocialNetworkingApp::Run()
@@ -46,6 +48,9 @@ void SocialNetworkingApp::Run()
                 //currentUser.viewHomePage();
                 //currentUser.viewTimeLine();
                 //currentUser.viewLikedPages();
+                //currentUser.viewAnyPage();
+                //currentUser.viewAnyPost();
+                
         }
         else 
         {

@@ -23,8 +23,9 @@ class Page
     int pagePostsCount;
 
     Page();
-    void inputPage(string*,int);
-    void displayAnyPage();
+    void GetNameFromFile(string);
+    void inputPage(string);
+    void displayAnyPage(string);
     void displayPagePosts();
 };
 Page::Page()
@@ -33,13 +34,36 @@ Page::Page()
     pageFollowers,pagePosts=nullptr;
     pageFollowersCount,pagePostsCount=0;
 }
-void Page::inputPage(string* pagesIDs,int i)
+void Page::GetNameFromFile(string id)
+{
+    ifstream searchData("Display.txt");
+
+    if(!searchData)
+    cout<<"\nDisplay File Failed to Open!";
+
+    string File;
+
+    while(1)
+    {
+        searchData>>File;
+
+        if(id==File)
+        {
+            while(searchData>>File && File!="-1")
+                cout<<File<<" ";
+                
+            break;
+        }
+    }
+    searchData.close();
+}
+void Page::inputPage(string pageID)
 {
     ifstream pageData("Pages.txt");
     if(!pageData)
         cout<<"\nPage File failed to Open!\n";
 
-    string IDtoFind=pagesIDs[i];    
+    string IDtoFind=pageID;    
 
     while(1)
     {
@@ -76,7 +100,7 @@ void Page::inputPage(string* pagesIDs,int i)
                 cout<<"\nPosts File Failed to Open!\n";
 
             for (int i=0;i<pagePostsCount;i++)
-                pagePosts[i]->inputPost(IDtoFind,postsData);
+                pagePosts[i]->inputPostByUserID(IDtoFind,postsData);
 
             postsData.close();
             break;
@@ -84,12 +108,24 @@ void Page::inputPage(string* pagesIDs,int i)
     }
     pageData.close();
 }
-// hello
-void Page::displayAnyPage()
+void Page::displayAnyPage(string pageID)
 {
-    string newID;
-    cout<<"\nEnter Any Page ID you want to see:";
-    getline(cin,newID);
+    cout<<"\n\n\n-----------------------------Required Page-----------------------------\n";
+    cout<<"\t\t\t";
+    GetNameFromFile(pageID);
+
+    cout<<"\nCreated By:";
+    GetNameFromFile(createdBy);
+
+    cout<<"\n\nFollowers are:\n";
+    for(int i=0;i<pageFollowersCount;i++)
+    {
+        cout<<"\t";
+        GetNameFromFile(pageFollowers[i]);
+    }
+    cout<<"\n\n\n";
+    displayPagePosts();
+    cout<<"\n\n---------------------------------------------------------------------\n";
 }
 void Page::displayPagePosts()
 {

@@ -88,7 +88,7 @@ void Friend::ReadFriendData(string id)
                 cout<<"\nPosts File Failed to Open!\n";
 
             for (int i=0;i<postsCount;i++)
-                userPosts[i]->inputPost(id,postsData);
+                userPosts[i]->inputPostByUserID(id,postsData);
 
             postsData.close();
 

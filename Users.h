@@ -32,6 +32,7 @@ class User
 
     public:
     User();
+
     bool CheckAccountExistence(string);
     void GetNameFromFile(string);
     void ReadDataFromFile(string);
@@ -39,6 +40,8 @@ class User
     void viewTimeLine();
     void viewFriendList();
     void viewLikedPages();
+    void viewAnyPage();
+    void viewAnyPost();
 };
 User::User()
 {
@@ -126,10 +129,10 @@ void User::ReadDataFromFile(string id)
                 pagesLiked[i]=new Page;
            
             for (int i=0;i<pagesLikedCount;i++)
-                pagesLiked[i]->inputPage(likedPagesID,i);
+                pagesLiked[i]->inputPage(likedPagesID[i]);
 
-            Post currentUser;
-            postsCount=currentUser.postsCount(id);
+            Post* currentUser=new Post[1];
+            postsCount=currentUser->postsCount(id);
             userPosts=new Post*[postsCount];
 
             for (int j=0;j<postsCount;j++)
@@ -140,9 +143,10 @@ void User::ReadDataFromFile(string id)
                 cout<<"\nPosts File Failed to Open!\n";
 
             for (int i=0;i<postsCount;i++)
-                userPosts[i]->inputPost(id,postsData);
+                userPosts[i]->inputPostByUserID(id,postsData);
 
             postsData.close();
+            delete[] currentUser;
 
             while(getline(friendsData,line)&&lineNumber1<lineNumber)
                 lineNumber1++;
@@ -232,13 +236,39 @@ void User::viewLikedPages()
 
     cout<<"\n\n--------------------------------------------------------------------------\n";
 }
-void Page::displayPagePosts()
+void User::viewAnyPage()
 {
-    for(int i=0;i<pagePostsCount;i++)
-    {
-        pagePosts[i]->displayPost();
-        cout<<"\n\n";
-    }
+    string input;
+    cout<<"\nEnter any Page ID:\t";
+    getline(cin,input);
+
+    Page* viewPage=new Page[1];
+
+    viewPage->inputPage(input);
+    viewPage->displayAnyPage(input);
+
+    delete[]viewPage;
+}
+void User::viewAnyPost()
+{
+    string input;
+    cout<<"\nEnter any Post ID:\t";
+    getline(cin,input);
+
+    Post* viewPost=new Post[1];
+
+    ifstream postsData("Posts.txt");
+    if(!postsData)
+        cout<<"\nPosts File Failed to Open!\n"; 
+
+    viewPost->inputPostByPostID(input,postsData);
+
+    cout<<"\n\n\n----------------------Required Post-----------------------------\n\n";
+    viewPost->displayPost();
+    cout<<"\n\n---------------------------------------------------------------------";
+
+    postsData.close();
+    delete[]viewPost;
 }
 
 #endif
