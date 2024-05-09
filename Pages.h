@@ -23,10 +23,13 @@ class Page
     int pagePostsCount;
 
     Page();
+
     void GetNameFromFile(string);
     void inputPage(string);
     void displayAnyPage(string);
     void displayPagePosts();
+
+    ~Page();
 };
 Page::Page()
 {
@@ -134,6 +137,15 @@ void Page::displayPagePosts()
         pagePosts[i]->displayPost();
         cout<<"\n\n";
     }
+}
+Page::~Page()
+{
+    delete[]pageFollowers;
+
+    for(int i=0;i<pagePostsCount;i++)
+       delete[] pagePosts[i];
+
+    delete[]pagePosts;
 }
 
 #endif

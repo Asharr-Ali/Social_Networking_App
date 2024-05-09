@@ -15,11 +15,13 @@ class Comment
     string commentContent;
 
     Comment();
-    void GetPageNameFromFile(string);
+
     void GetNameFromFile(string);
     void inputComment(string,ifstream&);
     void displayComment();
-    void displayPageComment();
+    void AddComment(string,string);
+
+    ~Comment();
 };
 Comment::Comment()
 {
@@ -73,5 +75,27 @@ void Comment::displayComment()
     GetNameFromFile(commentedBy);
     cout<<" wrote: "<<commentContent;
 }
+void Comment::AddComment(string postId,string userId)
+{
+    ofstream Data("Comments.txt",ios::app);
+    cout<<"\nPOst ID:"<<postId;
+    if(!Data)
+      cout<<"\nComment File Failed to Open!";
+
+    Data<<"\n\n"<<postId<<"  "<<userId<<"\n";
+
+    cin.ignore();
+    cout<<"\nEnter Comment plz:\t";
+    string comment;
+    getline(cin,comment);
+
+    Data<<comment;
+
+    cout<<"\nComment SuccessFully Added!\n";
+
+    Data.close();
+}
+Comment::~Comment()
+{ }
 
 #endif

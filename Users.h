@@ -25,6 +25,7 @@ class User
     int friendsCount;
     string* likedPagesID;
     Page** pagesLiked;
+    Page* viewPage=new Page;
     int pagesLikedCount;
     Post** userPosts;
     string* postsID;
@@ -42,6 +43,10 @@ class User
     void viewLikedPages();
     void viewAnyPage();
     void viewAnyPost();
+    void AddCommentOnPost();
+    void displayLikedPeople();
+
+    ~User();
 };
 User::User()
 {
@@ -116,7 +121,6 @@ void User::ReadDataFromFile(string id)
             userData>>pagesLikedCount;
 
             likedPagesID=new string[pagesLikedCount];
-
             for (int i=0;i<pagesLikedCount;i++)
             {
                 string Data;
@@ -131,8 +135,8 @@ void User::ReadDataFromFile(string id)
             for (int i=0;i<pagesLikedCount;i++)
                 pagesLiked[i]->inputPage(likedPagesID[i]);
 
-            Post* currentUser=new Post[1];
-            postsCount=currentUser->postsCount(id);
+            Post currentUser;
+            postsCount=currentUser.postsCount(id);
             userPosts=new Post*[postsCount];
 
             for (int j=0;j<postsCount;j++)
@@ -146,7 +150,6 @@ void User::ReadDataFromFile(string id)
                 userPosts[i]->inputPostByUserID(id,postsData);
 
             postsData.close();
-            delete[] currentUser;
 
             while(getline(friendsData,line)&&lineNumber1<lineNumber)
                 lineNumber1++;
@@ -163,7 +166,6 @@ void User::ReadDataFromFile(string id)
                     friendsID[i]=Data;
                 }
             }
-
             friendsList=new Friend* [friendsCount];
             for (int i=0;i<friendsCount;i++)
                 friendsList[i]=new Friend;
@@ -240,35 +242,79 @@ void User::viewAnyPage()
 {
     string input;
     cout<<"\nEnter any Page ID:\t";
+    cin.ignore();
     getline(cin,input);
 
-    Page* viewPage=new Page[1];
+    viewPage=new Page;
 
     viewPage->inputPage(input);
     viewPage->displayAnyPage(input);
-
-    delete[]viewPage;
 }
 void User::viewAnyPost()
 {
     string input;
     cout<<"\nEnter any Post ID:\t";
+    cin.ignore();
     getline(cin,input);
 
-    Post* viewPost=new Post[1];
+    Post viewPost;
 
     ifstream postsData("Posts.txt");
     if(!postsData)
         cout<<"\nPosts File Failed to Open!\n"; 
 
-    viewPost->inputPostByPostID(input,postsData);
+    viewPost.inputPostByPostID(input,postsData);
 
     cout<<"\n\n\n----------------------Required Post-----------------------------\n\n";
-    viewPost->displayPost();
-    cout<<"\n\n---------------------------------------------------------------------";
+    viewPost.displayPost();
+    cout<<"\n\n-----------------------------------------------------------------";
 
     postsData.close();
-    delete[]viewPost;
+}
+void User::AddCommentOnPost()
+{
+    string input;
+    cout<<"\n\nEnter Post ID in post-x form on which you want to Comment:\n";
+    cin>>input;
+
+    Comment Add;
+
+    Add.AddComment(input,ID);
+}
+void User::displayLikedPeople()
+{
+    string input;
+    cout<<"\nEnter post ID you want to view People who Liked it:\t";
+    cin.ignore();
+    getline(cin,input);
+
+    cout<<"\n\n\n--------------------------------Liked People-----------------------\n\n";
+    Like currentUser;
+    currentUser.inputLike(input);
+    currentUser.displayLikedPeople();
+    cout<<"\n\n\n---------------------------------------------------------------------";
+}
+User::~User()
+{
+    delete[]friendsID;
+    delete[]likedPagesID;
+    delete[]postsID;
+    delete[]viewPage;
+
+    for(int i=0;i<friendsCount;i++)
+        delete[] friendsList[i];
+
+    delete[]friendsList;
+
+    for(int j=0;j<pagesLikedCount;j++)
+       delete[] pagesLiked[j];
+
+    delete[]pagesLiked;
+
+    for(int k=0;k<postsCount;k++)
+       delete[] userPosts[k];
+
+    delete[]userPosts;
 }
 
 #endif

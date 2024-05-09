@@ -10,8 +10,6 @@
 using namespace std;
 
 class Post;
-class Page;
-class User;
 
 class Friend
 {
@@ -25,9 +23,12 @@ class Friend
 
     public:
     Friend();
+
     void GetNameFromFile(string);
     void ReadFriendData(string);
     void userPostsDisplay();
+
+    ~Friend();
 };
 Friend::Friend()
 {
@@ -104,6 +105,15 @@ void Friend::userPostsDisplay()
         userPosts[i]->displayPost();
         cout<<"\n\n";
     }
+}
+Friend::~Friend()
+{
+    delete[]postsID;
+
+    for(int i=0;i<postsCount;i++)
+       delete[]userPosts[i];
+
+    delete[]userPosts;
 }
 
 #endif

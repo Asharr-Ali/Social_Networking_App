@@ -6,6 +6,7 @@
 #include<fstream>
 
 #include "Comments.h"
+#include "Likes.h"
 
 using namespace std;
 
@@ -19,6 +20,7 @@ class Post
     int activity;
     string feeling;
     string sharedUser;
+    Like** postLikes;
     Comment** postComments;
     int postCommentsCount;
 
@@ -30,6 +32,8 @@ class Post
     void inputPostByPostID(string ,ifstream&);
     void inputCommentsOfPost();
     void displayPost();
+
+    ~Post();
 };
 Post::Post()
 {
@@ -102,6 +106,10 @@ void Post::inputPostByUserID(string ID,ifstream& postData)
                 getline(postData,feeling);
 
             inputCommentsOfPost();
+
+            Like currentUser;
+            currentUser.inputLike(postID);
+
             break;
         }
     }
@@ -130,13 +138,14 @@ void Post::inputPostByPostID(string ID,ifstream& postData)
                 getline(postData,feeling);
 
             inputCommentsOfPost();
+
             break;
         }
     }
 }
 void Post::inputCommentsOfPost()
 {
-    ifstream commentsData("Comments.txt");
+        ifstream commentsData("Comments.txt");
         if(!commentsData)
             cout<<"\nComment File Failed to Open!";
 
@@ -177,7 +186,7 @@ void Post::displayPost()
     else 
     {
         GetNameFromFile(sharedUser);
-        cout<<" shared a post "<<"\t"<<postDate<<"\n"<<" ---"<<postContent;
+        cout<<" shared a post. "<<"\t"<<postDate<<"\n"<<" ---"<<postContent;
     }
     for (int i=0;i<postCommentsCount;i++)
     {
@@ -185,5 +194,12 @@ void Post::displayPost()
         postComments[i]->displayComment();
     }   
 } 
+Post::~Post()
+{
+    for (int i=0;i<postCommentsCount;i++)
+         delete postComments[i];
+
+    delete[]postComments;
+}
 
 #endif
