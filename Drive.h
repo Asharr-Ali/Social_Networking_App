@@ -20,7 +20,7 @@ void SocialNetworkingApp::Run()
     cout<<"\t\t\tWelcome to Social Networking App!\n";
     int choice;
     
-    cout<<"\nPress 1 to Sign In!\nPress 2 to Sign Up!\n";
+    cout<<"\nPress 1 to Sign In!\nPress 2 to Sign Up!\nChoice:\t";
     cin>>choice;
     
     if (choice==1)
@@ -48,7 +48,9 @@ void SocialNetworkingApp::Run()
                     <<"\nPress 5 to view Any Page!"
                     <<"\nPress 6 to view Any Post!"
                     <<"\nPress 7 to Add Comment on Post!"
-                    <<"\nPress 8 to view People who liked Post!\t";
+                    <<"\nPress 8 to view People who liked Post!"
+                    <<"\nPress 0 to Sign Out!\n"
+                    <<"\nChoice:\t";
 
                 int choice;
                 cin>>choice;
@@ -68,7 +70,12 @@ void SocialNetworkingApp::Run()
                 else if(choice==7)
                     currentUser->AddCommentOnPost();   
                 else if(choice==8)
-                    currentUser->displayLikedPeople();         
+                    currentUser->displayLikedPeople();
+                else if(choice==0)
+                {
+                    cout<<"\n\tYou have been Successfully Signed Out!\n\n";
+                    break;
+                }         
             }
         }
         else 

@@ -18,6 +18,7 @@ class Comment
 
     void GetNameFromFile(string);
     void inputComment(string,ifstream&);
+    int GetPostCommentsCount(string);
     void displayComment();
     void AddComment(string,string);
 
@@ -70,6 +71,22 @@ void Comment::inputComment(string postId,ifstream& Data)
         }
     }
 }
+int Comment::GetPostCommentsCount(string postId)
+{
+    int Count=0;
+    ifstream CommentData("Comments.txt");
+    if(!CommentData)
+       cout<<"\nComment File Failed to Open!";
+
+    string File;
+    while(CommentData>>File)
+    {
+        if(File==postId)
+           Count++;
+    }
+    CommentData.close();
+    return Count;   
+}
 void Comment::displayComment()
 {
     GetNameFromFile(commentedBy);
@@ -78,7 +95,6 @@ void Comment::displayComment()
 void Comment::AddComment(string postId,string userId)
 {
     ofstream Data("Comments.txt",ios::app);
-    cout<<"\nPOst ID:"<<postId;
     if(!Data)
       cout<<"\nComment File Failed to Open!";
 

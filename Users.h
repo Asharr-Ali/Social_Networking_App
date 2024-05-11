@@ -254,8 +254,7 @@ void User::viewAnyPost()
 {
     string input;
     cout<<"\nEnter any Post ID:\t";
-    cin.ignore();
-    getline(cin,input);
+    cin>>input;
 
     Post viewPost;
 
@@ -274,7 +273,7 @@ void User::viewAnyPost()
 void User::AddCommentOnPost()
 {
     string input;
-    cout<<"\n\nEnter Post ID in post-x form on which you want to Comment:\n";
+    cout<<"\n\nEnter Post ID in post-x form on which you want to Comment:\t";
     cin>>input;
 
     Comment Add;

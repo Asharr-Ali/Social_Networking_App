@@ -77,7 +77,7 @@ int Post::postsCount(string ID)
         postData>>File;
 
         if(ID==File)
-        postsCount++;
+           postsCount++;
     }
     postData.close();    
     return postsCount;
@@ -96,7 +96,9 @@ void Post::inputPostByUserID(string ID,ifstream& postData)
             postData>>num;
             postData>>postDate;
             postData>>activity;
-            postData>>postCommentsCount;
+
+            Comment CurrentUser;
+            postCommentsCount=CurrentUser.GetPostCommentsCount(postID);
 
             string line;
             getline(postData,line);
@@ -128,7 +130,9 @@ void Post::inputPostByPostID(string ID,ifstream& postData)
             postData>>num;
             postData>>postDate;
             postData>>activity;
-            postData>>postCommentsCount;
+
+            Comment CurrentUser;
+            postCommentsCount=CurrentUser.GetPostCommentsCount(postID);
 
             string line;
             getline(postData,line);

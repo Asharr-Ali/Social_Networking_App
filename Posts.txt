@@ -1,57 +1,57 @@
 12
 
 post1
-u3 post1 2 (14/11/2017) 1 2
+u3 post1 2 (14/11/2017) 1 
 OOP Project Started Yayy....
 excited!  
 
 post2 
-u3 post2 2 (13/11/2017) 2 0
+u3 post2 2 (13/11/2017) 2 
 Life will be beautiful after exams...
 Mids.
 
 post3
-u11 post3 1 (14/11/2017) 0 3 
+u11 post3 1 (14/11/2017) 0 
 Waiting for Weekend! 
 
 post4
-u12 post4 1 (14/11/2017) 0 1
+u12 post4 1 (14/11/2017) 0 
 Waiting for Result!  
 
 post5
-p1 post5 2 (14/11/2017) 3 3
+p1 post5 2 (14/11/2017) 3
 Try this at home...
 Kashmiri Chai (Pink Tea) 
 
 post6
-p2 post6 1 (14/11/2017) 0 0
+p2 post6 1 (14/11/2017) 0 
 Oil drilling in Alaska's indigenous communities is on the table again. 
 
 post7
-p5 post7 1 (15/11/2017) 0 1
+p5 post7 1 (15/11/2017) 0 
 Be free of possessing things - Rumi... 
 
 post8
-u7 post8 2 (14/11/2017) 4 1 
+u7 post8 2 (14/11/2017) 4
 Happy Birthday to my dear Mom!
 birthday. 
 
 post9
-u7 post9 2 (14/10/2017) 4 1
+u7 post9 2 (14/10/2017) 4 
 Happy Birthday to my dear Father!
 birthday. 
 
 post10
-u7 post10 2 (15/11/2015) 4 1
+u7 post10 2 (15/11/2015) 4 
 Got D in toughest subject... Thanks God I am Pass finally...
 Success. 
 
 post11
-p1 post11 2 (10/11/2017) 3 0
+p1 post11 2 (10/11/2017) 3 
 Sunday Special Breafast for our followers...
 Halwa Puri. 
 
 post12
-u20 post12 2 (10/10/2017) 4 0
+u20 post12 2 (10/10/2017) 4
 Happy Birthday Ali Bhai!
 birthday.  
