@@ -45,6 +45,9 @@ class User
     void viewAnyPost();
     void AddCommentOnPost();
     void displayLikedPeople();
+    void shareMemory();
+    void viewMemories();
+    void LikePost();
 
     ~User();
 };
@@ -278,7 +281,12 @@ void User::AddCommentOnPost()
 
     Comment Add;
 
-    Add.AddComment(input,ID);
+    int PostCommentCount=Add.GetPostCommentsCount(input);
+    cout<<"Count:"<<PostCommentCount;
+    if(PostCommentCount<=10)
+       Add.AddComment(input,ID);
+    else 
+       cout<<"\nMaximum Comments Limit Reached!";
 }
 void User::displayLikedPeople()
 {
@@ -292,6 +300,124 @@ void User::displayLikedPeople()
     currentUser.inputLike(input);
     currentUser.displayLikedPeople();
     cout<<"\n\n\n---------------------------------------------------------------------";
+}
+void User::shareMemory()
+{
+    string input,text;
+    cout<<"\nEnter post ID you want to Share as a Memory:\t";
+    cin>>input;
+
+    cin.ignore();
+    cout<<"\nEnter Text you want to Share:\t";
+    getline(cin,text);
+
+    ofstream MemoriesData("Memories.txt",ios::app);
+
+    if(!MemoriesData)
+       cout<<"\nMemories File Failed to open!";
+
+    MemoriesData<<"\n\n"<<ID<<" "<<input<<" "<<"1-Year-Ago"<<"\n"<<text;
+
+    MemoriesData.close();
+
+    cout<<"\n\nSuccessfully Shared as Memory!\n";
+}
+void User::viewMemories()
+{
+    cout<<"\n\n\n-----------------------Current User Memories---------------------\n\n";
+    ifstream MemoriesData("Memories.txt");
+
+    if(!MemoriesData)
+       cout<<"\nMemories File Failed to open!";
+
+    string File,PostID;
+    while(MemoriesData>>File)
+    {
+        if(File==ID)
+        {
+            MemoriesData>>PostID;
+            MemoriesData>>File;
+            cout<<"\n"<<File;
+            getline(MemoriesData,File);
+            getline(MemoriesData,File);
+
+            cout<<"\n\t---"<<File<<"\n\n";
+
+            break;
+        }
+    }
+    MemoriesData.close();
+
+    Post viewPost;
+
+    ifstream postsData("Posts.txt");
+    if(!postsData)
+        cout<<"\nPosts File Failed to Open!\n"; 
+
+    viewPost.inputPostByPostID(PostID,postsData);
+    viewPost.displayPost();
+
+    postsData.close();  
+}
+void User::LikePost()
+{
+    string input;
+    cout<<"\nEnter Post ID you want to Like:\t";
+    cin>>input;
+
+    ifstream inputFile("Likes.txt");
+    if (!inputFile)
+       cout<<"\nLikes File Failed to open!";
+
+    ofstream tempFile("temp.txt");
+    if (!tempFile) 
+        cout<< "\nFailed to create temporary file!";
+
+    string word;
+    while (inputFile >> word) 
+    {
+        if(word==input)
+        {
+            tempFile<<word<<" ";
+
+            int totalLikes;
+            inputFile>>totalLikes;
+
+            if(totalLikes<=10)
+            {
+                totalLikes++;
+                tempFile<<totalLikes<<" ";
+
+                string File;
+                while(inputFile>>File)
+                {
+                    if(File=="-1")
+                    {
+                        tempFile<<ID<<" "<<"-1"<<"\n";
+                        break;
+                    }
+                    tempFile<<File<<" ";
+                }
+            }
+            else 
+              cout<<"\n\nMaximum Likes Limit Reached!";
+        }
+        else
+        {
+            if(word!="-1")
+               tempFile << word << " ";
+            else 
+               tempFile<<"-1"<<"\n";
+        } 
+    }
+
+    inputFile.close();
+    tempFile.close();
+
+    remove("Likes.txt");
+    rename("temp.txt", "Likes.txt");
+
+    cout << "\n\tLike Added Successfully!";
 }
 User::~User()
 {
