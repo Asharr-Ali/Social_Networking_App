@@ -17,7 +17,7 @@ class SocialNetworkingApp
 };
 void SocialNetworkingApp::Run()
 {
-    cout<<"\t\t\tWelcome to Social Networking App!\n";
+    cout<<"\n\t\t\tWelcome to Social Networking App!\n";
     int choice;
     
     cout<<"\nPress 1 to Sign In!\n\nChoice:\t";

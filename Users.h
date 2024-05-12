@@ -207,7 +207,8 @@ void User::viewTimeLine()
         userPosts[i]->displayPost();
         cout<<"\n\n";
     }
-    cout<<"-----------------------------------------------------------------------------------\n\n\n";
+    viewMemories();
+    cout<<"\n\n-----------------------------------------------------------------------------------\n\n\n";
 }
 void User::viewFriendList()
 {
@@ -282,7 +283,7 @@ void User::AddCommentOnPost()
     Comment Add;
 
     int PostCommentCount=Add.GetPostCommentsCount(input);
-    cout<<"Count:"<<PostCommentCount;
+
     if(PostCommentCount<=10)
        Add.AddComment(input,ID);
     else 
@@ -324,7 +325,7 @@ void User::shareMemory()
 }
 void User::viewMemories()
 {
-    cout<<"\n\n\n-----------------------Current User Memories---------------------\n\n";
+    cout<<"\n";
     ifstream MemoriesData("Memories.txt");
 
     if(!MemoriesData)

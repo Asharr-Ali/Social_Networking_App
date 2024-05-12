@@ -107,7 +107,7 @@ void Comment::AddComment(string postId,string userId)
 
     Data<<comment;
 
-    cout<<"\nComment SuccessFully Added!\n";
+    cout<<"\n\tComment SuccessFully Added!\n";
 
     Data.close();
 }
