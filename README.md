@@ -1,0 +1,1 @@
+This project is a social networking application that allows users to sign in and interact with the platform similar to other social networking platforms. It is developed as part of my Object-Oriented Programming (OOP) coursework in C++. The project implements relationships between classes, specifically using aggregation.
