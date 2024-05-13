@@ -1,4 +1,4 @@
-post1 3 u1 u5 u7 -1
+post1 4 u1 u5 u7 u1 -1
 post2 3 u8 u10 u11 -1
 post3 4 u2 u4 u6 u9 -1
 post4 4 u3 u5 u7 u12 -1
