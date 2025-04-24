@@ -7,6 +7,6 @@ post6 3 u16 u18 u19 -1
 post7 2 u17 u20 -1
 post8 2 u2 u5 -1
 post9 4 u4 u6 u8 u10 -1
-post10 3 u9 u11 u13 -1
+post10 4 u9 u11 u13 u7 -1
 post11 3 u12 u14 u15 -1
-post12 4 u16 u17 u19 u20 -1
+post12 5 u16 u17 u19 u20 u7 -1

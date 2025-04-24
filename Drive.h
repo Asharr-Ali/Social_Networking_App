@@ -22,7 +22,7 @@ void SocialNetworkingApp::Run()
     
     cout<<"\nPress 1 to Sign In!\n\nChoice:\t";
     cin>>choice;
-    
+        
     if (choice==1)
     {
         User* currentUser=new User;
